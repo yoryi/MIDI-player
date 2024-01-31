@@ -1,0 +1,42 @@
+<body>
+  <iframe
+    src="http://localhost:5000"
+    frameborder="0"
+    width="800"
+    height="300"
+  ></iframe>
+  <iframe
+    src="http://localhost:5000"
+    frameborder="0"
+    width="800"
+    height="300"
+  ></iframe>
+  <iframe
+    src="http://localhost:5000"
+    frameborder="0"
+    width="800"
+    height="300"
+  ></iframe>
+  <script>
+    // Function to handle postMessage from iframes
+    function handleMessage(event) {
+        // Ensure that the message is from a trusted source (your iframes)
+        // if (event.origin !== "http://localhost:5000") {
+        //     return;
+        // }
+        // Handle the message (e.g., stop other players)
+        if (event.data === 'play') {
+            // Stop other players
+            const iframes = document.querySelectorAll('iframe');
+            iframes.forEach(iframe => {
+                if (iframe.contentWindow !== event.source) {
+                    iframe.contentWindow.postMessage('stop', '*');
+                }
+            });
+        }
+    }
+
+    // Add event listener for postMessage
+    window.addEventListener('message', handleMessage);
+  </script>
+</body>
