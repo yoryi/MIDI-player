@@ -32,6 +32,15 @@ module.exports = merge(common, {
     new CopyPlugin({
       patterns: [{ from: "public/test.mp3", to: "test.mp3" }],
     }),
+    new CopyPlugin({
+      patterns: [{ from: "public/assets/image/stop.svg", to: "assets/image/stop.svg" }],
+    }),
+    new CopyPlugin({
+      patterns: [{ from: "public/assets/image/play icon.svg", to: "assets/image/play icon.svg" }],
+    }),
+    new CopyPlugin({
+      patterns: [{ from: "public/assets/image/metronome.svg", to: "assets/image/metronome.svg" }],
+    }),
     sentryWebpackPlugin({
       authToken: process.env.SENTRY_AUTH_TOKEN,
       org: "codingcafe_jp",
