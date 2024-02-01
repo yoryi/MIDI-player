@@ -1,8 +1,8 @@
-import styled from "@emotion/styled"
-import { observer } from "mobx-react-lite"
-import { FC } from "react"
-import { DEFAULT_TEMPO } from "../../../common/player"
-import { useStores } from "../../hooks/useStores"
+import styled from "@emotion/styled";
+import { observer } from "mobx-react-lite";
+import { FC } from "react";
+import { DEFAULT_TEMPO } from "../../../common/player";
+import { useStores } from "../../hooks/useStores";
 
 const TempoInput = styled.input`
   background: transparent;
@@ -25,7 +25,7 @@ const TempoInput = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
-`
+`;
 
 const TempoWrapper = styled.div`
   display: flex;
@@ -48,36 +48,37 @@ const TempoWrapper = styled.div`
     border: 1px solid ${({ theme }) => theme.dividerColor};
     background: #ffffff14;
   }
-  
-`
+`;
 
 export const TempoForm: FC = observer(() => {
   const {
     song,
     pianoRollStore: { currentTempo },
     player,
-  } = useStores()
-  const tempo = currentTempo ?? DEFAULT_TEMPO
+  } = useStores();
+  const tempo = currentTempo ?? DEFAULT_TEMPO;
 
   const changeTempo = (tempo: number) => {
-    const fixedTempo = Math.max(1, Math.min(512, tempo))
-    song.conductorTrack?.setTempo(fixedTempo, player.position)
-    player.currentTempo = fixedTempo
-  }
+    const fixedTempo = Math.max(1, Math.min(512, tempo));
+    song.conductorTrack?.setTempo(fixedTempo, player.position);
+    player.currentTempo = fixedTempo;
+  };
 
   const onKeyPressTempo = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      e.preventDefault()
-      e.currentTarget.blur()
+      e.preventDefault();
+      e.currentTarget.blur();
     }
-  }
+  };
 
   const onChangeTempo = (e: React.ChangeEvent<HTMLInputElement>) =>
-    changeTempo(parseFloat(e.target.value))
+    changeTempo(parseFloat(e.target.value));
 
   return (
-    <TempoWrapper>
-      <label htmlFor="tempo-input">BPM:</label>
+    <TempoWrapper id="tempoWrapper">
+      <label htmlFor="tempo-input" id="tempo-label">
+        BPM:
+      </label>
       <TempoInput
         type="number"
         id="tempo-input"
@@ -89,5 +90,5 @@ export const TempoForm: FC = observer(() => {
         onKeyPress={onKeyPressTempo}
       />
     </TempoWrapper>
-  )
-})
+  );
+});

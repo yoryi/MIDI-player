@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import Loop from "mdi-react/LoopIcon";
 import { observer } from "mobx-react-lite";
-import { FC, useCallback, useRef } from "react";
+import { FC, useCallback, useEffect, useRef } from "react";
 import MusicPlayer from "../../../common/player/Auidio";
 import { playOrPause, stop, toggleEnableLoop } from "../../actions";
 import { useStores } from "../../hooks/useStores";
@@ -28,7 +28,7 @@ const Toolbar = styled.div`
 const StopButton = styled.div`
   width: 20px;
   height: 20px;
-  background-image: url('/assets/image/stop.svg');
+  background-image: url("/assets/image/stop.svg");
   background-size: cover;
   @media (max-width: 560px) {
     width: 15px;
@@ -56,7 +56,7 @@ const MetronomeButton = styled(CircleButton)`
 const MetronomeIconButton = styled.div`
   width: 20px;
   height: 20px;
-  background-image: url('/assets/image/metronome.svg');
+  background-image: url("/assets/image/metronome.svg");
   background-size: cover;
   @media (max-width: 560px) {
     width: 15px;
@@ -119,14 +119,47 @@ export const TransportPanel: FC = observer(() => {
   const sendPosMessage = (action: string) => {
     window.parent.postMessage(action, "*");
   };
-  window.addEventListener("message", (event: MessageEvent) => {
-    console.log("message received");
+
+  const handleMessageEvent = (event: MessageEvent) => {
     if (event.origin === "null" && event.data === "stop") {
       console.log("stop post message received", event.data);
       onClickStop();
       musicPlayerRef.current?.reset();
     }
-  });
+  };
+  const handleKeyDownEvent = (event: KeyboardEvent) => {
+    if (event.code === "Space") {
+      onClickPlay();
+      onClickAudioPlay();
+    }
+  };
+  const handleClickEvent = (event: MouseEvent) => {
+    if (
+      event.button === 0 &&
+      (event.target as HTMLElement)?.id !== "button-play" &&
+      (event.target as HTMLElement)?.id !== "button-stop" &&
+      (event.target as HTMLElement)?.id !== "tempoWrapper" &&
+      (event.target as HTMLElement)?.id !== "tempo-input" &&
+      (event.target as HTMLElement)?.id !== "tempo-label"
+    ) {
+      onClickPlay();
+      onClickAudioPlay();
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("message", handleMessageEvent);
+    window.addEventListener("keydown", handleKeyDownEvent);
+    window.addEventListener("click", handleClickEvent);
+    return () => {
+      window.removeEventListener("message", handleMessageEvent);
+      window.removeEventListener("keydown", handleKeyDownEvent);
+      window.removeEventListener("click", handleClickEvent);
+    };
+  }, []);
+  useEffect(() => {
+    musicPlayerRef &&
+      musicPlayerRef?.current?.updatePlaybackRate(player.currentTempo);
+  }, [player.currentTempo]);
   return (
     <Toolbar>
       <MusicPlayer ref={musicPlayerRef} />
@@ -135,8 +168,9 @@ export const TransportPanel: FC = observer(() => {
           onClickStop();
           musicPlayerRef.current?.reset();
         }}
+        id="button-stop"
       >
-        <StopButton />
+        <StopButton id="button-stop" />
       </CircleButton>
       <MiddlePlayButton
         onClick={() => {

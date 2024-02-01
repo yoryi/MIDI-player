@@ -28,7 +28,7 @@ export const StyledPlayButton = styled(PlayArrow)`
   margin-left: 0.2rem;
   width: 17px;
   height: 18px;
-  background-image: url('/assets/image/play icon.svg');
+  background-image: url("/assets/image/play icon.svg");
   background-size: cover;
   @media (max-width: 560px) {
     width: 15px;
@@ -54,7 +54,11 @@ export const PlayButton: FC<PlayButtonProps> = (
       onClick={onClick}
       className={isPlaying ? "active" : undefined}
     >
-      {isPlaying ? <Pause /> : <StyledPlayButton />}
+      {isPlaying ? (
+        <Pause id="button-play" />
+      ) : (
+        <StyledPlayButton id="button-play" />
+      )}
     </StyledButton>
   );
 };

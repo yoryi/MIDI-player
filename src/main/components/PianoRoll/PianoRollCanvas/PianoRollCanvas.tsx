@@ -36,17 +36,16 @@ const CanvasBack = styled.div`
   z-index: 1;
   &::before {
     position: absolute;
-    content: '';
+    content: "";
     left: 0;
     top: 0;
     width: calc(25% - 16px);
     height: 100%;
     background-color: rgba(0, 0, 0, 0.05);
-
   }
   &::after {
     position: absolute;
-    content: '';
+    content: "";
     left: calc(50% - 32px);
     top: 0;
     width: calc(25% - 18px);
@@ -65,7 +64,6 @@ const CanvasBack = styled.div`
       left: calc(49% - 32px);
     }
   }
-  
 `;
 export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
   ({ width, height }) => {

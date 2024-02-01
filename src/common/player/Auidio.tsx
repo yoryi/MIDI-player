@@ -74,6 +74,15 @@ class MusicPlayer extends Component<MusicPlayerProps, MusicPlayerState> {
     this.setBPM(newBPM);
   };
 
+  updatePlaybackRate = (tempo: any): void => {
+    const beatsPerSecond = tempo / 100;
+    const playbackRate = beatsPerSecond; // Adjust as needed
+
+    if (this.audioRef.current) {
+      this.audioRef.current.playbackRate = playbackRate;
+    }
+  };
+
   render(): JSX.Element {
     const { isPlaying, bpm } = this.state;
 

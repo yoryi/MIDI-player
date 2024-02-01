@@ -1,24 +1,24 @@
-import styled from "@emotion/styled"
-import { observer } from "mobx-react-lite"
-import { FC } from "react"
-import { Layout } from "../../Constants"
-import { useStores } from "../../hooks/useStores"
-import { useTheme } from "../../hooks/useTheme"
-import CanvasPianoRuler from "./CanvasPianoRuler"
-import PianoKeys from "./PianoKeys"
-import { PianoRollCanvas } from "./PianoRollCanvas/PianoRollCanvas"
+import styled from "@emotion/styled";
+import { observer } from "mobx-react-lite";
+import { FC } from "react";
+import { Layout } from "../../Constants";
+import { useStores } from "../../hooks/useStores";
+import { useTheme } from "../../hooks/useTheme";
+import CanvasPianoRuler from "./CanvasPianoRuler";
+import PianoKeys from "./PianoKeys";
+import { PianoRollCanvas } from "./PianoRollCanvas/PianoRollCanvas";
 
 export interface PianoRollStageProps {
-  width: number
-  height: number
+  width: number;
+  height: number;
 }
 
-const Container = styled.div``
+const Container = styled.div``;
 
 const ContentPosition = styled.div`
   position: absolute;
   left: ${Layout.keyWidth}px;
-`
+`;
 
 const RulerPosition = styled.div`
   position: absolute;
@@ -26,21 +26,21 @@ const RulerPosition = styled.div`
   left: 0;
   padding-left: ${Layout.keyWidth}px;
   height: ${Layout.rulerHeight}px;
-`
+`;
 
 const PianoKeyPosition = styled.div`
   position: absolute;
   left: 0;
   top: 0;
   height: 100%;
-`
+`;
 
 export const PianoRollStage: FC<PianoRollStageProps> = observer(
   ({ width, height }) => {
-    const { pianoRollStore } = useStores()
-    const { scrollTop, transform } = pianoRollStore
+    const { pianoRollStore } = useStores();
+    const { scrollTop, transform } = pianoRollStore;
 
-    const theme = useTheme()
+    const theme = useTheme();
 
     return (
       <Container>
@@ -62,6 +62,6 @@ export const PianoRollStage: FC<PianoRollStageProps> = observer(
           <CanvasPianoRuler rulerStore={pianoRollStore.rulerStore} />
         </RulerPosition>
       </Container>
-    )
-  },
-)
+    );
+  }
+);
