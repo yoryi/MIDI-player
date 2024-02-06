@@ -1,8 +1,8 @@
-import { css, Global } from "@emotion/react"
-import { useTheme } from "../../hooks/useTheme"
+import { css, Global } from "@emotion/react";
+import { useTheme } from "../../hooks/useTheme";
 
 export const GlobalCSS = () => {
-  const theme = useTheme()
+  const theme = useTheme();
   return (
     <Global
       styles={css`
@@ -24,23 +24,27 @@ export const GlobalCSS = () => {
           font-family: ${theme.font};
           font-size: 0.75rem;
           overflow-y: hidden;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         #root {
           position: relative;
-          height: calc(100vh - 4px);
-          border: 2px solid #CCC;
+          width: 600px;
+          height: 450px;
+          border: 2px solid #ccc;
           border-radius: 20px;
         }
         #root::before {
-          content: '';
+          content: "";
           position: absolute;
           top: -2px;
           left: -2px;
           width: 100%;
           height: 50px;
           border-radius: 20px 20px 0 0;
-          border: 2px solid #CCC;
+          border: 2px solid #ccc;
           z-index: 1;
         }
 
@@ -61,5 +65,5 @@ export const GlobalCSS = () => {
         }
       `}
     />
-  )
-}
+  );
+};

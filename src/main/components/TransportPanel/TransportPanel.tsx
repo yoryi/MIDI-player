@@ -136,11 +136,7 @@ export const TransportPanel: FC = observer(() => {
   const handleClickEvent = (event: MouseEvent) => {
     if (
       event.button === 0 &&
-      (event.target as HTMLElement)?.id !== "button-play" &&
-      (event.target as HTMLElement)?.id !== "button-stop" &&
-      (event.target as HTMLElement)?.id !== "tempoWrapper" &&
-      (event.target as HTMLElement)?.id !== "tempo-input" &&
-      (event.target as HTMLElement)?.id !== "tempo-label"
+      (event.target as HTMLElement)?.id === "playGround"
     ) {
       onClickPlay();
       onClickAudioPlay();

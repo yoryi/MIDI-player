@@ -160,8 +160,9 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
 
     useEffect(() => {
       const lastNote = pianoRollStore.notes[pianoRollStore.notes.length - 1];
-      if (player.isPlaying && cursorX >= lastNote?.x + lastNote?.width + 20) {
+      if (player.isPlaying && cursorX >= lastNote?.x + lastNote?.width) {
         player.reset();
+        player.play();
       }
     }, [cursorX]);
 
@@ -188,6 +189,7 @@ export const PianoRollCanvas: FC<PianoRollStageProps> = observer(
           onMouseDown={mouseHandler.onMouseDown}
           onMouseMove={mouseHandler.onMouseMove}
           onMouseUp={mouseHandler.onMouseUp}
+          id="playGround"
         >
           <Transform matrix={scrollYMatrix}>
             <Lines zIndex={0} />

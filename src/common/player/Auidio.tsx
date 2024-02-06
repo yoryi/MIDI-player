@@ -33,6 +33,7 @@ class MusicPlayer extends Component<MusicPlayerProps, MusicPlayerState> {
 
   play = (): void => {
     if (this.audioRef.current) {
+      this.audioRef.current.volume = 0.6;
       this.audioRef.current.play();
       this.setState({ isPlaying: true }, () => {
         if (this.props.onPlay) {
@@ -88,11 +89,7 @@ class MusicPlayer extends Component<MusicPlayerProps, MusicPlayerState> {
 
     return (
       <div style={{ display: "none" }}>
-        <audio
-          ref={this.audioRef}
-          onEnded={() => this.setState({ isPlaying: false })}
-          controls
-        >
+        <audio ref={this.audioRef} controls loop>
           <source src={`/${window.audioFile}?v=1`} type="audio/mpeg" />
         </audio>
       </div>
